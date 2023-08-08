@@ -1,0 +1,160 @@
+  
+  <nav class="navbar navbar-light bg-primary">
+  <div class="container-fluid">
+    <h1 style="color: aliceblue;">DB Admin</h1>
+    <div class="d-flex">
+      <button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        class="btn btn-success"
+      >
+        Add Table
+      </button>
+    </div>
+  </div>
+</nav>
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let table of tables">
+      <td>
+        {{ table.name }}
+        <div class="float-end ">
+          <button
+            type="button"
+            class="btn btn-success mx-1"
+            data-bs-toggle="modal"
+            data-bs-target="#addModal" (click)="selectedTableForAddingMiniTable = table"          >
+            Add
+          </button>
+          <div id="addModal" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Mini Tab</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <table class="table table-bordered">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>Name</th>
+                            <th>Tag</th>
+                            <th>Type</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <td><input type="text" class="form-control" [(ngModel)]="newMiniTableName"></td>
+                          <td><input type="text" class="form-control" [(ngModel)]="newMiniTableTag"></td>
+                          <td><input type="text" class="form-control" [(ngModel)]="newMiniTableType"></td>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="d-grid gap-2">
+                      <button class="btn btn-primary" type="button" (click)="addMiniTable(selectedTableForAddingMiniTable)" data-bs-dismiss="modal">Add Mini Table</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button  class="btn btn-danger mx-1" (click)="deleteTable(table)">Delete</button>
+          <button class="btn btn-primary mx-1" data-bs-toggle="modal" [attr.data-bs-target]="'#viewModal-' + table.id">View Table</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" data-bs-dismiss="modal">Add Table</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" ngForm>
+        <div class="form-group">
+          <label for="tableName">Name</label>
+          <input
+            type="text"
+            id="tableName"
+            name="name"
+            class="form-control"
+            required
+            [(ngModel)]="newTableName"/>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="createTable()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div *ngFor="let table of tables">
+    <div
+      class="modal fade"
+      [id]="'viewModal-' + table.id"
+      tabindex="-1"
+      aria-labelledby="babiesModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="babiesModalLabel">
+              Babies of {{ table.name }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Tag</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let baby of table.babies">
+                  <td>{{ baby.name }}</td>
+                  <td>{{ baby.tag }}</td>
+                  <td>{{ baby.type }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 

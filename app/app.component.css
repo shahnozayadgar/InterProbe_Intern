@@ -1,0 +1,16 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .form-control {
+    width: 100%;
+  }
+
+  .top-grey-background {
+    background-color: rgba(128, 128, 128, 0.2); /* Adjust the alpha value (0.2) to control transparency */
+    padding: 10px; /* Optional: Add padding to the top of the columns */
+  }
+  
+  
